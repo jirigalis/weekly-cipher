@@ -19,6 +19,7 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+/.vscode
 
 # Visual Studio Code
 .vscode/*
@@ -42,4 +43,5 @@ testem.log
 Thumbs.db
 
 # api
-/api/vendor
+/api/vendor/
+/api/.env
