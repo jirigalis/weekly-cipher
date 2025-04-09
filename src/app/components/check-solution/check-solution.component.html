@@ -1,0 +1,45 @@
+<mat-card>
+    <mat-card-header>
+        <h4>Zkontrolovat řešení šifry</h4>
+    </mat-card-header>
+    <mat-card-content>
+        @if (ciphersSig().length === 0) {
+            <p>Nejsou žádné šifry k zkontrolování.</p>
+        } @else {
+            <div class="card-content-wrapper">
+                <form [formGroup]="checkSolutionForm">
+                    <div class="form-wrapper">
+                        <mat-form-field>
+                            <mat-label>Vyberte šifru</mat-label>
+                            <mat-select placeholder="Vyberte šifru" formControlName="cipherControl" (selectionChange)="onCipherChange()">
+                                @for (cipher of ciphersSig(); track cipher.id) {
+                                    <mat-option [value]="cipher.id">{{cipher.number}}. {{ cipher.name }} - {{ cipher.created | date: 'd. M. yyyy' }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Zadejte vaše jméno</mat-label>
+                            <input matInput placeholder="Zadejte vaše jméno" formControlName="nameControl">
+                            <mat-hint>Zadáte-li své jméno, vaše odpověď bude zaznamenána ve výsledkové listině</mat-hint>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Zadejte vaše řešení</mat-label>
+                            <textarea matInput rows="5" placeholder="Zadejte vaše řešení" formControlName="solutionControl"></textarea>
+                            @if (checkSolutionForm.controls.solutionControl.invalid) {
+                                <mat-error>Toto pole je povinné</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </form>
+                <div class="cipher-thumbnail">
+                    <h5>Náhled šifry</h5>
+                    <img [src]="'assets/' + selectedCipherSig()?.image" alt="Náhled šifry" (click)="openDetail()"/>
+                </div>
+            </div>
+        }
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button (click)="openInfoDialog()">Nápověda</button>
+        <button mat-button mat-raised-button (click)="checkSolution()">Zkontrolovat</button>
+    </mat-card-actions>
+</mat-card>

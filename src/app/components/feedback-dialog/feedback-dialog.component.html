@@ -1,0 +1,37 @@
+<h2>Výsledek řešení</h2>
+<mat-dialog-content>
+    <div class="dialog-container">
+        <div class="column column-left">
+            @if (resultSig() === 'CORRECT') {
+                <img class="feedback-image" [src]="'assets/correct.png'" alt="Výsledek řešení"/>
+            } @else if (resultSig() === 'SOLUTION_EXISTS') {
+                <img class="feedback-image" src="assets/solution_exists.png" alt="Výsledek řešení"/>
+            } @else {
+                <img class="feedback-image" [src]="'assets/wrong.png'" alt="Výsledek řešení"/>
+            }
+        </div>
+        <div class="column column-right">
+            @if (resultSig() === 'CORRECT') {
+                <img class="icon" src="assets/icon_correct.png" alt="Správné řešení"/>
+                <div>
+                    <h3>Vaše řešení je správné!</h3>
+                    <p>Gratulujeme, vaše řešení je správné. Pokud jste zadali i jméno, najdete se v tabulce řešitelů.</p>
+                </div>
+            } @else if (resultSig() === 'SOLUTION_EXISTS') {
+                <div>
+                    <h3>Ne ne, ne.</h3>
+                    <p>Vícero řešení jedné šifry pod stejným jménem nezapíšeme, to by nebylo fér.</p>
+                </div>
+            } @else {
+                <img class="icon" src="assets/icon_wrong.png" alt="Nesprávné řešení"/>
+                <div>
+                    <h3>Ale ne! Kde se stala chyba?</h3>
+                    <p>Bohužel vaše řešení není správné. Zkuste to prosím znovu.</p>
+                </div>
+            }
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onClose()">Zavřít</button>
+</mat-dialog-actions>

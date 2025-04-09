@@ -1,0 +1,19 @@
+.w-full {
+    width: 100%;
+}
+
+.name-container {
+    padding-top: 10px;
+}
+
+.number-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 16px;
+    padding-bottom: 8px;
+}
+
+.number-container mat-form-field,
+.number-container mat-slide-toggle {
+    align-self: center;
+}

@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-header>
+        Nejlepší řešitelé
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef style="max-width: 40px;">#</th>
+                <td mat-cell *matCellDef="let element">{{ element.position }}.</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Jméno</th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="correct">
+                <th mat-header-cell *matHeaderCellDef>Počet správných řešení</th>
+                <td mat-cell *matCellDef="let element">{{ element.correct }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>

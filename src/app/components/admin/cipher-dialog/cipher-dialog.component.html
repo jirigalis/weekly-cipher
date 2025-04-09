@@ -1,0 +1,45 @@
+@if (cipherSig()) {
+    <h2 mat-dialog-title>Upravit šifru č. {{ cipherSig()?.number }}</h2>
+} @else {
+    <h2 mat-dialog-title>Vytvořit novou šifru</h2>
+}
+<mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="name-container">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Název šifry</mat-label>
+                <input matInput placeholder="Název šifry" formControlName="name">
+            </mat-form-field>
+        </div>
+        <div class="number-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Číslo šifry</mat-label>
+                <input matInput type="number" placeholder="Číslo šifry" formControlName="number">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Datum vytvoření</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="created">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-slide-toggle formControlName="active">Aktivní</mat-slide-toggle>
+        </div>
+        <div class="solution-container">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Řešení šifry</mat-label>
+                <textarea matInput placeholder="Řešení šifry" formControlName="realSolution"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="image-container">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Obrázek</mat-label>
+                <input matInput placeholder="Klíč šifry" formControlName="image">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Zrušit</button>
+    <button mat-flat-button (click)="save()">Uložit</button>
+</mat-dialog-actions>

@@ -1,0 +1,13 @@
+h2 {
+    padding-left: 2rem;
+}
+
+@media (width < 768px) {
+    h2 {
+        padding-left: 1rem;
+    }
+
+    img {
+        max-width: initial;
+    }
+}

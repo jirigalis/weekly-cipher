@@ -1,0 +1,12 @@
+.home-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px 20px;
+    justify-items: stretch;
+}
+
+@media (width < 1368px) {
+    .home-container {
+        grid-template-columns: 1fr;
+    }
+}

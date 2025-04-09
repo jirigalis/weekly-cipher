@@ -1,0 +1,35 @@
+.card-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    justify-items: stretch;
+}
+
+mat-form-field {
+    margin-bottom: 1rem;
+}
+
+@media (width < 1168px) {
+    .card-content-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: stretch;
+}
+
+.form-wrapper mat-form-field {
+    width: 100%;
+}
+
+.cipher-thumbnail img {
+    width: 100%;
+    height: auto;
+}
+
+mat-card-actions button {
+    margin-left: 8px;
+}

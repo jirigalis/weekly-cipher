@@ -1,0 +1,19 @@
+<h2>Jak pracovat s touto aplikací</h2>
+<mat-dialog-content>
+    <p>
+        Tato aplikace slouží k procvičování jednoduchých šifer. V sekci "Zkontrolovat řešení šifry" se nachází
+        formulář pro zkontrolování řešení šifry. Vyberte šifru, kterou chcete zkontrolovat, zadejte své jméno (nepovinné) a řešení
+        šifry. Pokud je vaše řešení správné a zadali jste jméno, bude vše zaznamenáno ve výsledkové listině. V části "Nejlepší řešitelé" se
+        nachází výsledková listina, kde můžete vidět seznam nejlepších řešitelů.
+    </p>
+    <p>
+        Řešení zadávejte do textového pole "Zadejte vaše řešení". Při vyhodnocování řešení se nebere ohled na velikost písmen, ani na háčky a čárky.
+        Znamená to tedy, že např. řešení "Odpověď" bude vyhodnoceno jako správné i když je zadáno jako "odpoved".
+    </p>
+    <p>
+        Pro zobrazení detailu šifry klikněte na náhled šifry. Pro zavření detailu šifry klikněte na tlačítko "Zavřít".
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onClose()">Zavřít</button>
+</mat-dialog-actions>
