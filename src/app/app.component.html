@@ -2,7 +2,10 @@
     <div class="user-container">
         @if (auth.isLoggedIn()) {
             <button mat-mini-fab (click)="goToAdmin()" matTooltip="Administrace" matTooltipPosition="left">
-                <mat-icon>settings</mat-icon>
+                <mat-icon>security</mat-icon>
+            </button>
+            <button mat-mini-fab (click)="goToMessages()" matTooltip="Administrace" matTooltipPosition="left">
+                <mat-icon>message</mat-icon>
             </button>
             <button mat-mini-fab (click)="goHome()" matTooltip="Domů" matTooltipPosition="below">
                 <mat-icon>home</mat-icon>

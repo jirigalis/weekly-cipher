@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
-import { Cipher, Result } from './data.interface';
+import { Cipher, Message, Result } from './data.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -47,5 +47,26 @@ export class ApiService {
 
     deleteCipher(cipherId: number) {
         return this.http.delete(this.apiUrl + '/ciphers/' + cipherId);
+    }
+
+    // MESSAGES
+    getMessages(): Observable<Message[]> {
+        return this.http.get<Message[]>(this.apiUrl + '/messages');
+    }
+
+    getMessage(messageId: number): Observable<Message> {
+        return this.http.get<Message>(this.apiUrl + '/messages/' + messageId);
+    }
+
+    addMessage(message: Message) {
+        return this.http.post(this.apiUrl + '/messages', message);
+    }
+
+    editMessage(message: Message) {
+        return this.http.put(this.apiUrl + '/messages', message);
+    }
+
+    deleteMessage(messageId: number) {
+        return this.http.delete(this.apiUrl + '/messages/' + messageId);
     }
 }

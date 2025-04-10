@@ -24,6 +24,10 @@ export class AppComponent {
         this.router.navigate(['/admin']);
     }
 
+    goToMessages() {
+        this.router.navigate(['/admin/messages']);
+    }
+
     goHome() {
         this.router.navigate(['/']);
     }

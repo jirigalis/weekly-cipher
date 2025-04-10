@@ -1,0 +1,26 @@
+@if (messageSig()) {
+    <h2 mat-dialog-title>Upravit zprávu č. {{ messageSig()?.number}}</h2>
+} @else {
+    <h2 mat-dialog-title>Vytvořit novou zprávu</h2>
+}
+
+<mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="number-container">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Číslo zprávy</mat-label>
+                <input matInput type="number" placeholder="Číslo zprávy" formControlName="number">
+            </mat-form-field>
+        </div>
+        <div class="text-container">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Text zprávy</mat-label>
+                <textarea matInput placeholder="Text zprávy" formControlName="text" rows="7"></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Zrušit</button>
+    <button mat-flat-button (click)="save()">Uložit</button>
+</mat-dialog-actions>

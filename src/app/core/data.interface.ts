@@ -31,3 +31,9 @@ export interface Result {
     count: number;
     position: number;
 }
+
+export interface Message {
+    id?: number;
+    number: number;
+    text: string;
+}

@@ -381,6 +381,103 @@ function convertSolution($solution) {
     return $solution;
 }
 
+/////// MESSAGES ///////
+// GET: Fetch all messages from database
+$app->get($apiPrefix . '/messages', function (Request $request, Response $response) use ($pdo) {
+    $stmt = $pdo->query('SELECT * FROM message');
+    $results = $stmt->fetchAll();
+
+    $response->getBody()->write(json_encode($results));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+// GET: Fetch a single message from database
+$app->get($apiPrefix . '/messages/{id}', function (Request $request, Response $response, $args) use ($pdo) {
+    $id = $args['id'];
+
+    // get the message from the database
+    $stmt = $pdo->prepare('SELECT * FROM message WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+    $message = $stmt->fetch();
+
+    if (!$message) {
+        return createInvalidInputResponse($response);
+    }
+
+    $response->getBody()->write(json_encode($message));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->post($apiPrefix . '/messages', function (Request $request, Response $response) use ($pdo) {
+    $data = json_decode($request->getBody()->getContents(), true);
+
+    if (!isset($data['number']) || empty($data['number'])) {
+        return createInvalidInputResponse($response);
+    }
+
+    if (!isset($data['text']) || empty($data['text'])) {
+        return createInvalidInputResponse($response);
+    }
+
+    // make some SQL injection prevention
+    $data['number'] = htmlspecialchars($data['number']);
+    $data['text'] = htmlspecialchars($data['text']);
+
+    // insert the message into the database
+    $stmt = $pdo->prepare('INSERT INTO message (number, text) VALUES (:number, :text)');
+    $stmt->execute(['number' => $data['number'], 'text' => $data['text']]);
+
+    $response->getBody()->write(strval($pdo->lastInsertId()));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->put($apiPrefix . '/messages', function (Request $request, Response $response) use ($pdo) {
+    $data = json_decode($request->getBody()->getContents(), true);
+
+    if (!isset($data['id']) || !is_numeric($data['id'])) {
+        return createInvalidInputResponse($response);
+    }
+
+    if (!isset($data['number']) || empty($data['number'])) {
+        return createInvalidInputResponse($response);
+    }
+    
+    if (!isset($data['text']) || empty($data['text'])) {
+        return createInvalidInputResponse($response);
+    }
+
+    // make some SQL injection prevention
+    $data['id'] = htmlspecialchars($data['id']);
+    $data['number'] = htmlspecialchars($data['number']);
+    $data['text'] = htmlspecialchars($data['text']);
+    // check if the message already exists, check number, don't forget to exclude the current message
+    $stmt = $pdo->prepare('SELECT * FROM message WHERE number = :number AND id != :id');
+    $stmt->execute(['number' => $data['number'], 'id' => $data['id']]);
+    $message = $stmt->fetch();
+    if ($message) {
+        // message already exists, return error
+        $error = array('error' => 'MESSAGE_EXISTS', 'status' => 200);
+        $response->getBody()->write(json_encode($error));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+    // update the message in the database
+    $stmt = $pdo->prepare('UPDATE message SET number = :number, text = :text WHERE id = :id');
+    $stmt->execute(['number' => $data['number'], 'text' => $data['text'], 'id' => $data['id']]);
+    $response->getBody()->write(strval($data['id']));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->delete($apiPrefix . '/messages/{id}', function (Request $request, Response $response, $args) use ($pdo) {
+    $id = $args['id'];
+
+    // delete the message from the database
+    $stmt = $pdo->prepare('DELETE FROM message WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+
+    $response->getBody()->write(strval($id));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->get($apiPrefix . '/test', function (Request $request, Response $response) {
     $response->getBody()->write('Hello, World!');
     return $response;
