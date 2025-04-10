@@ -408,6 +408,23 @@ $app->get($apiPrefix . '/messages/{id}', function (Request $request, Response $r
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+// GET: Fetch a single message from database by number
+$app->get($apiPrefix . '/messages/number/{number}', function (Request $request, Response $response, $args) use ($pdo) {
+    $number = $args['number'];
+
+    // get the message from the database
+    $stmt = $pdo->prepare('SELECT * FROM message WHERE number = :number');
+    $stmt->execute(['number' => $number]);
+    $message = $stmt->fetch();
+
+    if (!$message) {
+        return createInvalidInputResponse($response);
+    }
+
+    $response->getBody()->write(json_encode($message));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->post($apiPrefix . '/messages', function (Request $request, Response $response) use ($pdo) {
     $data = json_decode($request->getBody()->getContents(), true);
 

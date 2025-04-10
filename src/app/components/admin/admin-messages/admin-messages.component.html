@@ -48,8 +48,11 @@
                     <button mat-icon-button matTooltip="Odstranit zprávu" (click)="deleteMessage(row.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button matTooltip="Odstranit zprávu" (click)="viewMessage(row.id)">
+                    <button mat-icon-button matTooltip="Náhled zprávy" (click)="viewMessage(row.number)">
                         <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Náhled zprávy" (click)="showQRCode(row.number)">
+                        <mat-icon>qr_code</mat-icon>
                     </button>
                 </td>
             </ng-container>

@@ -25,6 +25,7 @@ import { Message } from '../../../core/data.interface';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 import { switchMap } from 'rxjs';
+import { QrCodeDialogComponent } from '../../qr-code-dialog/qr-code-dialog.component';
 
 @Component({
   selector: 'app-admin-messages',
@@ -122,7 +123,17 @@ export class AdminMessagesComponent implements AfterViewInit {
         });
     }
 
-    public viewMessage(messageId: number): void {
-        this.router.navigate(['/message', messageId]);
+    public viewMessage(messageNumber: number): void {
+        this.router.navigate(['/message', messageNumber]);
+    }
+
+    public showQRCode(messageNumber: number): void {
+        this.dialog.open(QrCodeDialogComponent, {
+            maxWidth: '348px',
+            width: '100%',
+            data: {
+                messageNumber
+            }
+        })
     }
 }

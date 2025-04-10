@@ -13,7 +13,7 @@ export const routes: Routes = [
     { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
     { path: 'admin/messages', component: AdminMessagesComponent, canActivate: [authGuard] },
     {
-        path: 'message/:messageId',
+        path: 'message/:messageNumber',
         component: DisplayMessageComponent,
         resolve: { message: MessageResolverService }
     },

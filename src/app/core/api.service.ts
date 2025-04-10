@@ -54,6 +54,10 @@ export class ApiService {
         return this.http.get<Message[]>(this.apiUrl + '/messages');
     }
 
+    getMessageByNumber(messageNumber: number): Observable<Message> {
+        return this.http.get<Message>(this.apiUrl + '/messages/number/' + messageNumber);
+    }
+
     getMessage(messageId: number): Observable<Message> {
         return this.http.get<Message>(this.apiUrl + '/messages/' + messageId);
     }
